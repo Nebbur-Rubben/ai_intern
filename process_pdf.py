@@ -18,23 +18,23 @@ def read_pdf(file_path):
 def send_to_openai(text_content):
     """Sends the given text content to the OpenAI GPT-4 model and returns the response."""
     try:
-        # Modify the prompt to act according to the new content requirements
         prompt = f"""
-        Create detailed explanations and clarifications about STM32 Discovery Kits based on the text provided. Specifically, focus on:
-        - Pin configurations
-        - Pin functions
-        - Connections and interactions between pins
-        - Examples of usage for specific pins
-
-        TEXT CONTENT:
+        Create the max amount of meaningful scientific, electrical engineering, solid state physics, and computer science development fine-tuning data responses possible for the following TEXT CONTENT. Try to create as many as you can. Expand on the data and link it to scientific, electrical engineering, and computer science development data, to have good data. Create fine-tuning data to explain how to develop physics simulations with the provided formulas, engineering code, explanations, and other relevant data. IT MUST STRICTLY FOLLOW THE FOLLOWING SYNTAX AT THE BOTTOM OF THIS PROMPT. Make sure it is indexed properly as the syntax entails:
         {text_content}
 
-        STRICTLY FOLLOW THIS SYNTAX FOR EACH ENTRY, DO NOT ADD ANYTHING ELSE to the SYNTAX:
+        STRICTLY FOLLOW THIS SYNTAX FOR EACH, DO NOT ADD ANYTHING ELSE to the SYNTAX:
         {{
             "messages": [
-                {{"role": "system", "content": "You are an expert in STM32 Discovery Kits and electronics."}},
+                {{"role": "system", "content": "expert in physics simulations"}},
                 {{"role": "user", "content": "Provide detailed explanations about STM32 Discovery Kit pins, including their configurations, functions, and usage examples based on the provided text."}},
-                {{"role": "assistant", "content": "Detailed and expanded response regarding the pins, configurations, and usage examples."}}
+                {{"role": "assistant", "content": "response_to_question"}}
+            ]
+        }}
+        {{
+            "messages": [
+                {{"role": "system", "content": "expert in physics simulations"}},
+                {{"role": "user", "content": "Provide detailed explanations about STM32 Discovery Kit pins, including their configurations, functions, and usage examples based on the provided text."}},
+                {{"role": "assistant", "content": "response_to_question"}}
             ]
         }}
         """
@@ -42,7 +42,7 @@ def send_to_openai(text_content):
         response = client.chat.completions.create(
             model="gpt-4o-mini-2024-07-18",
             messages=[
-                {"role": "system", "content": "You are an expert in STM32 Discovery Kits and electronics, creating fine-tuning data for educational and technical purposes."},
+                {"role": "system", "content": "You are an expert electrical engineer and computer scientist that is creating fine-tuning data on how we can simulate engineering creations"},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=4000,
@@ -85,6 +85,5 @@ def process_directory(directory_path):
             process_pdf(file_path, output_dir)
 
 if __name__ == "__main__":
-    # Change the directory path to the folder where you hold the PDF
-    directory_path = r"D:\STM32 Discovery Kits_Yang Xu\datasheet"  # Specify the path to the PDF file
+    directory_path = r"D:\STM32 Discovery Kits_Yang Xu\datasheet"
     process_directory(directory_path)
